@@ -1,150 +1,75 @@
-// =============== CSS RESET =================
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-	display: block;
-}
-body {
-	line-height: 1;
-}
-ol,
-ul {
-	list-style: none;
-}
-
-// =============== CSS RESET END =================
-
+// @import 'App';
 $black: #000;
-$green: #6ed66e;
-#root {
-	width: 100%;
-	max-width: 1440px;
-	margin: 0 auto;
-	nav {
-    background: #fff;
-    margin: 5px auto;
-		ul {
-			list-style: none;
-		}
-		li {
-			text-decoration: none;
-			display: block;
-			padding: 10px 15px;
-			text-align: center;
-			&:hover a {
-				cursor: pointer;
-				border-bottom: 5px solid $black;
-				padding-bottom: 7px;
-			}
-		}
-	}
+$green: #48b148;
+
+@mixin easeOut {
+	transition: all 0.5s ease-out;
 }
 
-@media screen and (min-width: 768px) {
+@mixin easeIn {
+	transition: all 0.5s ease-in;
+}
+
+nav {
+  background: #fff;
+  margin: 5px;
+  font-size: .75rem;
+  line-height: 1rem;
+  font-family: "proxima-nova-1", sans-serif;
+  li {
+    text-decoration: none;
+    text-align: center;
+  }
+}
+
+header input.nav-toggle {
+  display: none;
+}
+
+.hamburger-btn {
+  position: absolute;
+  z-index: 3;
+  left: 20px;
+  top: 15px;
+  cursor: pointer;
+  @include easeOut;
+  .btn-line {
+    margin:0 0 5px 0;
+    background: $black;
+    width: 28px;
+    height: 3px;
+    @include easeOut;
+  }
+}
+
+.largest-devices {
+  display: none;
+}
+
+.medium-devices {
+  display: none;
+}
+
+.green {
+    color: $green;
+}
+
+@media (min-width: 768px) {
+  .active-link li {
+    border-bottom: 4px solid $black;
+  }
+  header .mobile-header {
+    display: none;
+  }
 	nav {
 		display: flex;
-		font-family: "Arimo", sans-serif;
-		font-size: 12px;
-		line-height: 16px;
+    padding: 0px;
 		border-top: 1px solid $black;
 		border-bottom: 1px solid $black;
+    min-height: 37px;
+    .hamburger-btn {
+      display: none;
+    }
 		ul.navbar-left {
 			display: flex;
 			justify-content: flex-start;
@@ -156,10 +81,43 @@ $green: #6ed66e;
 			flex-grow: 1;
     }
     li {
-      padding: 0 10px;
-    }
-    li.green {
-        color: $green;
+      margin: 0 10px;
+      padding: 10px 0 5px;
+      color: $black;
+      &:hover a {
+        cursor: pointer;
       }
+    }
+    li.medium-devices {
+      display: block;
+    }
 	}
 }
+
+@media (min-width: 1024px) {
+	nav {
+    li.largest-devices {
+      display: block;
+    }
+	}
+}
+
+@media (max-width: 767px) {
+  header {
+    .nav-toggle:checked ~ nav {
+      display: block;
+    }
+    .mobile-header {
+      min-height: 50px;
+	  }
+    li {
+      line-height: 2rem;
+    }
+  }
+
+  nav {
+    display: none;
+  }
+
+}
+
