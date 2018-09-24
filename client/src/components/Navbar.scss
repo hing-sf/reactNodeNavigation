@@ -1,14 +1,4 @@
-// @import 'App';
-$black: #000;
-$green: #48b148;
-
-@mixin easeOut {
-	transition: all 0.5s ease-out;
-}
-
-@mixin easeIn {
-	transition: all 0.5s ease-in;
-}
+@import '../styles';
 
 nav {
   background: #fff;
@@ -17,7 +7,6 @@ nav {
   line-height: 1rem;
   font-family: "proxima-nova-1", sans-serif;
   li {
-    text-decoration: none;
     text-align: center;
   }
 }
@@ -55,8 +44,8 @@ header input.nav-toggle {
 }
 
 @media (min-width: 768px) {
-  .active-link li {
-    border-bottom: 4px solid $black;
+  a.active-link {
+    @include navHoverUnderline;
   }
   header .mobile-header {
     display: none;
@@ -83,9 +72,23 @@ header input.nav-toggle {
     li {
       margin: 0 10px;
       padding: 10px 0 5px;
-      color: $black;
-      &:hover a {
-        cursor: pointer;
+      position: relative;
+      a {
+        &::before {
+          content: '';
+          height: 4px;
+          background: black;
+          position: absolute;
+          bottom: 0rem;
+          left: 0;
+          right: 0;
+          transform: scale(0, 1);
+          @include easeOut;
+        }
+        &:hover::before {
+          cursor: pointer;
+          transform: scale(1,1);
+        }
       }
     }
     li.medium-devices {

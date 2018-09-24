@@ -5,7 +5,6 @@ nav {
   line-height: 1rem;
   font-family: "proxima-nova-1", sans-serif; }
   nav li {
-    text-decoration: none;
     text-align: center; }
 
 header input.nav-toggle {
@@ -17,13 +16,13 @@ header input.nav-toggle {
   left: 20px;
   top: 15px;
   cursor: pointer;
-  transition: all 0.5s ease-out; }
+  transition: all 80ms ease-out; }
   .hamburger-btn .btn-line {
     margin: 0 0 5px 0;
     background: #000;
     width: 28px;
     height: 3px;
-    transition: all 0.5s ease-out; }
+    transition: all 80ms ease-out; }
 
 .largest-devices {
   display: none; }
@@ -35,8 +34,9 @@ header input.nav-toggle {
   color: #48b148; }
 
 @media (min-width: 768px) {
-  .active-link li {
-    border-bottom: 4px solid #000; }
+  a.active-link {
+    border-bottom: 4px solid #000;
+    padding-bottom: .40rem; }
   header .mobile-header {
     display: none; }
   nav {
@@ -58,9 +58,20 @@ header input.nav-toggle {
     nav li {
       margin: 0 10px;
       padding: 10px 0 5px;
-      color: #000; }
-      nav li:hover a {
-        cursor: pointer; }
+      position: relative; }
+      nav li a::before {
+        content: '';
+        height: 4px;
+        background: black;
+        position: absolute;
+        bottom: 0rem;
+        left: 0;
+        right: 0;
+        transform: scale(0, 1);
+        transition: all 80ms ease-out; }
+      nav li a:hover::before {
+        cursor: pointer;
+        transform: scale(1, 1); }
     nav li.medium-devices {
       display: block; } }
 

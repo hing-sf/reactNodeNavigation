@@ -1,3 +1,5 @@
+@import './styles';
+
 #root {
 	width: 100%;
 	max-width: 1440px;
@@ -14,5 +16,5 @@
     justify-content: center;
     min-height: 300px;
     align-items: center;
-	background: #eee;
+	background: $lt-gray;
 }

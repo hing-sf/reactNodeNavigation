@@ -6,7 +6,6 @@ npm run watch-css
 # build sass
 npm run watch-css
 
-
 # thredUP Navigation Bar Exercise
 
 The thredUP navigation bar currently is built with dynamic data from our custom CMS service.

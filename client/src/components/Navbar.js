@@ -15,41 +15,48 @@ class Navbar extends Component {
 	componentDidMount() {
 		// fetch navlist on component Mount
 		fetch("/api/navlist")
-			.then(res => res.json())
+			.then(res => {
+			if (res.status > 400 && res.status < 499) {
+				throw Error(`Request rejected with status ${res.status}`);
+			} else if (res.status >= 500) {
+				throw Error(`Server error status ${res.status}`);
+			} else {
+				return res.json();
+			}
+			})
 			.then(navlist => {
 				let leftNav = [];
 				let rightNav = [];
 
 				navlist.forEach((element, idx) => {
 
-					// add index as id to element
+					// create id:index to use as element unique key
 					element['id'] = element['id'] || idx;
 
-					// arrange nav list to placement
-					if (element.className.indexOf("left") > -1) {
-						leftNav.push(element);
-					} else {
-						rightNav.push(element);
-					}
+					// arrange nav list to correct group
+					(element.className.indexOf("left") > -1) ? leftNav.push(element) : rightNav.push(element);
 				});
 				this.setState({ leftNav, rightNav });
-			});
+			})
+			.catch(console.error);
 	}
 
-	// load link based on type
-	loadLinks( link ) {
+	// return link based on type of link.
+	loadNavLinks( link ) {
 		if (link.href.indexOf('http') > -1) {
+			// return link to external site
 			return (
 							<li className={`nav-item ${link.className}`} key={link.id }>
-									<a target="_blank" href={link.href}>{link.label}</a>
-							</li>)
+								<a className={link.color} target="_blank" href={link.href} >{link.label}</a>
+							</li>
+							)
 		} else {
+			// return link to internal site
 			return (
-							<NavLink exact strict to={link.href} activeClassName="active-link" key={link.id }>
-								<li className={`nav-item ${link.className}`}>
-									{link.label}
-								</li>
-							</NavLink>)
+							<li className={`nav-item ${link.className}`} key={link.id }>
+								<NavLink exact strict className={link.color} to={link.href} activeClassName="active-link" >{link.label}</NavLink>
+							</li>
+							)
 		}
 	}
 
@@ -69,12 +76,12 @@ class Navbar extends Component {
 				<nav>
 					<ul className="navbar-left">
 						{this.state.leftNav.map(link => (
-							this.loadLinks( link )
+							this.loadNavLinks( link )
 						))}
 					</ul>
 					<ul className="navbar-right">
 						{this.state.rightNav.map(link => (
-							this.loadLinks( link )
+							this.loadNavLinks( link )
 						))}
 					</ul>
 				</nav>

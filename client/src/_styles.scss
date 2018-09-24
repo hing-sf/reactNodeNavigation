@@ -1,0 +1,16 @@
+$black: #000;
+$green: #48b148;
+$lt-gray: #eee;
+
+@mixin easeOut {
+	transition: all 80ms ease-out;
+}
+
+@mixin easeIn {
+	transition: all 80ms ease-in;
+}
+
+@mixin navHoverUnderline {
+    border-bottom: 4px solid $black;
+    padding-bottom: .40rem;
+}
